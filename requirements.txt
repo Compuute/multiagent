@@ -1,0 +1,10 @@
+langchain
+openai
+streamlit
+python-dotenv
+google-cloud-aiplatform
+google-cloud-storage
+google-cloud-logging
+google-cloud-secret-manager
+google-cloud-pubsub
+pandas
