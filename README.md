@@ -1,6 +1,5 @@
 # 🧠 MultiAgent Healthcare Platform
 
-Welcome to the MultiAgent Healthcare project!
 This is a GenAI-driven system designed for intelligent Patient-Reported Outcomes (PROs) management — leveraging AI agents, Google Cloud Platform (GCP), and secure service accounts.
 
 ---
