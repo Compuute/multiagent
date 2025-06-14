@@ -26,17 +26,35 @@ We are building a multi-agent system that:
 
 ![Architecture Diagram](docs/assets/system-architecture.png)
 
-The system includes:
+This diagram illustrates a high-level overview of the MVP architecture:
 
-- **Frontend**: Dashboard for patients & clinicians (React)
-- **Backend**: Python + FastAPI (or Flask) for orchestrating agents
-- **GCP Infra**: Firestore, Cloud Run, Vertex AI, Secret Manager, Cloud Storage
-- **AI Models**: OpenAI + Vertex AI models via secure APIs
-- **MCP/Observability**: Integrated tracing for model context and agent actions
-- **ADK Agents**: Deployed and managed via ADK runtime in Cloud Run
-- **HITL Middleware**: Embedded in backend for approval flow and manual overrides
+- **Frontend** (React)
 
-More in `docs/architecture.md`
+  - Provides the UI for patients and clinicians
+  - Connects to backend APIs for real-time interaction
+
+- **Backend** (FastAPI or Flask)
+
+  - Orchestrates communication between agents
+  - Integrates Human-in-the-loop (HITL) logic for approvals
+  - Connects securely to GCP services
+
+- **Agents (Google ADK)**
+
+  - Deployed using ADK’s multi-agent runtime in Cloud Run
+  - Communicate via shared memory/context or backend API
+
+- **GCP Services**
+
+  - Firestore for storing patient data and questionnaire states
+  - Vertex AI for LLM execution (OpenAI fallback)
+  - Secret Manager for API keys
+  - Cloud Storage for backups and synthetic datasets
+
+- **MCP Integration**
+
+  - Captures agent steps, context switching, and action traceability
+  - Observability supported via Arize AI or ADK-compatible tracing
 
 ---
 
