@@ -1,3 +1,8 @@
+---
+title: MultiAgent MVP
+layout: default
+---
+
 # 🧠 Multi-Agent MVP - System Architecture
 
 Documentation page for the MultiAgent Healthcare MVP built for the Google Hackathon.
