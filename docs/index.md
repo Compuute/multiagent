@@ -1,28 +1,29 @@
-# Multi-Agent MVP - System Architecture
+# 🧠 Multi-Agent MVP - System Architecture
 
-Documentation page for Maba-Nessa Agentic MVP built for the hackathon.
+Documentation page for the MultiAgent Healthcare MVP built for the Google Hackathon.
+
+---
 
 ## 🔷 High-Level Architecture
 
-![HLD](architecture/MVP_HLD.png)
-
-The system includes:
-- A Companion Agent (User-facing)
-- Adaptive Questionnaire Agent
-- Trend Monitoring Agent
-- GCP services like Firestore, Cloud Functions, Vertex AI, Pub/Sub
+![HLD](assets/hld-diagram.png)
 
 ## 🔷 Low-Level Design
 
-![LLD](architecture/MVP_LLD.png)
+![LLD](assets/lld-diagram.png)
 
-Details:
-- Firestore for state
-- Pub/Sub for events
-- GCF & Cloud Run for orchestration
-- Vertex AI for LLMs
-- Cloud Logging for tracing & HITL
+## 🔷 Full System Architecture
 
-## 🧠 Agent Workflow (editable)
+![System Architecture](assets/system-architecture.png)
 
-See the diagram: `Agent_Workflow.drawio`
+This diagram integrates all key components:
+
+- Companion Agent, Adaptive Questionnaire Agent, Trend Monitoring Agent
+- ADK + HITL (Human-in-the-Loop)
+- GCP services: Firestore, Pub/Sub, Cloud Run, Secret Manager, Monitoring
+
+---
+
+## 🧠 Agent Workflow
+
+Source: `Agent_Workflow.drawio` in `docs/assets/`
