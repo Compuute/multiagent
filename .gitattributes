@@ -1,0 +1,18 @@
+# Normalize line endings
+* text=auto
+
+# Treat image and diagram files as binary (no diff)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.svg binary
+*.drawio binary
+
+# Scripts and configuration files
+*.sh text eol=lf
+*.py text eol=lf
+*.tf text eol=lf
+
+# Prevent merge conflicts with lockfiles
+*.lock merge=union
+*.lock.hcl merge=union

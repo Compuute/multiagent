@@ -1,2 +1,0 @@
-# Companion Agent Placeholder
-

@@ -119,6 +119,11 @@ This will:
 
 ---
 
+# 4 Install pre-commit hooks
+pip install pre-commit
+pre-commit install
+
+
 ## 🔐 Environment Variables
 
 Update your `.env` file with actual secrets:

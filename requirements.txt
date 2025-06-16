@@ -8,3 +8,4 @@ google-cloud-logging
 google-cloud-secret-manager
 google-cloud-pubsub
 pandas
+google-adk
