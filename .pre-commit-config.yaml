@@ -1,27 +1,45 @@
 repos:
+  # 🧼 Code Hygiene Hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
       - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-merge-conflict
       - id: check-added-large-files
       - id: detect-private-key
-      - id: check-merge-conflict
-      - id: check-yaml
-      - id: trailing-whitespace
+      - id: check-executables-have-shebang
+      - id: forbid-binary
+        args: ["--maxkb=1000"] # Prevent commits of binary/oversized files like .drawio.bkp
 
+  # 🐍 Python Formatting (Black)
   - repo: https://github.com/psf/black
     rev: 24.3.0
     hooks:
       - id: black
         language_version: python3
 
+  # 🧾 JSON Formatting
   - repo: https://github.com/pre-commit/pre-commit
     rev: v3.5.0
     hooks:
       - id: pretty-format-json
         args: ["--autofix"]
 
+  # 🧠 Terraform Linting
   - repo: https://github.com/terraform-linters/tflint
     rev: v0.50.3
     hooks:
       - id: tflint
+
+  # 🐚 Shell Scripting Safety
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.9.0
+    hooks:
+      - id: shellcheck
+
+  - repo: https://github.com/mvdan/sh
+    rev: v3.6.0
+    hooks:
+      - id: shfmt

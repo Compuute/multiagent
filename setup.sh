@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🔧 Starting multiagent-healthcare setup..."
+echo "🔧 Starting MultiAgent Healthcare setup..."
 
 # Step 1: Copy .env template if missing
 if [ ! -f .env ]; then
@@ -11,10 +11,11 @@ else
 fi
 
 # Step 2: Initialize Terraform in dev and prod
+echo "📦 Initializing Terraform..."
 cd infra/dev && terraform init && cd ../prod && terraform init && cd ../..
 echo "✅ Terraform initialized in dev and prod."
 
-# Step 3: Set up Python virtual environment
+# Step 3: Python Virtual Environment Setup
 if [ -f requirements.txt ]; then
   if [ ! -d .venv ]; then
     echo "📦 Creating Python virtual environment..."
@@ -27,9 +28,26 @@ if [ -f requirements.txt ]; then
   pip install --upgrade pip
   pip install -r requirements.txt
   deactivate
-  echo "✅ Dependencies installed."
+  echo "✅ Python dependencies installed."
 else
-  echo "⚠️ No requirements.txt found, skipping Python setup."
+  echo "⚠️ No requirements.txt found. Skipping Python setup."
 fi
 
-echo "🚀 Setup complete. Now update your .env with real secrets."
+# Step 4: Node.js setup for frontend (if folder exists)
+if [ -d "frontend" ]; then
+  echo "🧩 Setting up frontend..."
+  cd frontend
+  if [ -f package.json ]; then
+    npm install
+    echo "✅ Frontend dependencies installed."
+  else
+    echo "⚠️ No package.json found in frontend. Skipping frontend setup."
+  fi
+  cd ..
+fi
+
+# Step 5: Reminder for Google ADK setup
+echo "📌 NOTE: Make sure your GOOGLE_APPLICATION_CREDENTIALS are set in your .env"
+echo "📌 ADK agents should be installed and configured in /agents via Google ADK"
+
+echo "🚀 Setup complete. You’re ready to start development!"
