@@ -190,6 +190,30 @@ Coming soon:
 - [ ] Observability & MCP integration
 
 ---
+## Privacy & regulatory must haves
+
+- [x] Category	Requirement	Regulation
+- [x]Data Privacy	Encrypt data at rest and in transit	HIPAA, GDPR
+- [x]Data Privacy	De-identify patient data for non-clinical use	HIPAA, GDPR
+- [x]Data Privacy	Ensure data residency compliance	GDPR
+- [x]Consent	Obtain explicit patient consent for data collection and use	HIPAA, GDPR
+- [x]Consent	Allow patients to withdraw consent and delete their data	GDPR
+- [x]Auditability	Maintain audit logs of all data access and changes	HIPAA, 21 CFR Part 11
+- [x]Auditability	Ensure audit logs are immutable and tamper-evident	21 CFR Part 11
+- [x]Security	Implement role-based access control (RBAC)	HIPAA, GDPR
+- [x]Security	Conduct regular security risk assessments	HIPAA
+- [x]Ethical AI	Ensure AI models are free from bias	GCP
+- [x]Ethical AI	Provide explainable AI outputs to clinicians	GCP
+- [x]Ethical AI	Include human-in-the-loop for critical decisions	GCP
+- [x]Ethical AI	Ensure transparency in AI interactions with patients	GCP
+- [x]Ethical AI	Allow patients to opt-out of AI-driven interactions	GCP
+- [x]Data Privacy	Provide patients with access to their data	HIPAA, GDPR
+- [x]Data Privacy	Allow patients to correct inaccuracies in their data	HIPAA, GDPR
+- [x]Security	Implement multi-factor authentication (MFA)	HIPAA
+- [x]Security	Ensure secure data backup and recovery processes	HIPAA
+- [x]Auditability	Regularly review and update audit logs	21 CFR Part 11
+- [x]Ethical AI	Ensure cultural and linguistic appropriateness in AI interactions	GCP
+
 
 ## 📣 Contact
 
