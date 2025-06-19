@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# === SETTINGS ===
+# === Settings ===
 PROJECT_ID="hacker2025-team-10-dev"
 REGION="europe-west1"
 REPO="healthcare-backend-repo"
@@ -19,7 +19,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-echo "⏳ Waiting for Cloud Run service URL..."
+echo "⏳ Fetching deployed service URL from Cloud Run..."
 SERVICE_URL=$(gcloud run services describe "$SERVICE" \
   --project="$PROJECT_ID" \
   --region="$REGION" \
@@ -27,15 +27,15 @@ SERVICE_URL=$(gcloud run services describe "$SERVICE" \
   --format="value(status.url)")
 
 if [ -z "$SERVICE_URL" ]; then
-  echo "❌ Failed to get Cloud Run URL. Exiting."
+  echo "❌ Could not retrieve service URL. Exiting."
   exit 1
 fi
 
-echo "✅ Service deployed at: $SERVICE_URL"
+echo "✅ Service is live at: $SERVICE_URL"
 
-echo "📡 Sending test request to /interact..."
+echo "📡 Sending test request to /interact endpoint..."
 curl -X POST "$SERVICE_URL/interact" \
   -H "Content-Type: application/json" \
   -d "{\"input\": \"$INPUT_TEXT\"}"
 
-echo -e "\n✅ Test completed."
+echo -e "\n✅ Deploy & test completed."
