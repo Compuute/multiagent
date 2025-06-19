@@ -1,27 +1,38 @@
 FROM python:3.11-slim
 
-# Set environment variables
+# Env vars
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PIP_NO_CACHE_DIR=1
 
 WORKDIR /app
 
-# Install system dependencies
+# System dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     build-essential \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy and install all requirements in one step
+# Copy requirements and install first (so Docker can cache this layer)
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy the app source code
-COPY . .
+# Upgrade pip and install dependencies
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
+# Copy only necessary source code
+COPY ./app ./app
+COPY ./adk_agents ./adk_agents
+COPY ./configs ./configs
+COPY ./crew ./crew
+
+# Optionally: COPY other needed files (e.g. healthcheck, helpers)
+COPY ./requirements ./requirements
+COPY ./tests ./tests
+
+# Default port
 ENV PORT=8080
 EXPOSE $PORT
 
+# Entrypoint
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
