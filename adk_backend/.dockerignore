@@ -1,0 +1,17 @@
+# Ignorera lokala och orelaterade filer när Docker-bild byggs
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env
+.tempenv/
+.venv/
+.DS_Store
+.git
+.gitignore
+.gcloudignore
+tests/
+keys/
+legacy_backend/
+frontend/
+docs/

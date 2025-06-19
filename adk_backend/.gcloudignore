@@ -1,0 +1,27 @@
+# === GCP: Inkludera endast det vi behöver för deploy ===
+
+# Ignorera allt först
+**
+
+# ❗ Tillåt bara det som behövs:
+!cloudbuild.yaml
+!prebuild_check.sh
+!Dockerfile.fastapi
+!requirements.txt
+!app/**
+
+# === Ignorera cache, config, och testdata ===
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env
+.tempenv/
+.venv/
+.DS_Store
+*.http
+tests/
+keys/
+legacy_backend/
+frontend/
+docs/
