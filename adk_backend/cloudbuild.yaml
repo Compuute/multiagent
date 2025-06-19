@@ -1,0 +1,83 @@
+substitutions:
+  _REGION: europe-west1
+  _REPO: healthcare-backend-repo
+  _IMAGE: healthcare-backend-fastapi
+  _SERVICE: crewai-backend-api
+
+options:
+  machineType: E2_HIGHCPU_8
+  diskSizeGb: 50
+  logging: CLOUD_LOGGING_ONLY
+  dynamic_substitutions: true
+
+steps:
+  # 🧪 Step 0: Run enhanced dependency check script
+  - name: "python"
+    id: "Dependency Check"
+    entrypoint: "bash"
+    args: ["prebuild_check.sh"]
+
+  # 🔁 Step 1: Pull previous cache (optional)
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Pull Cache"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        docker pull gcr.io/$PROJECT_ID/$_IMAGE-cache || echo "⚠️ No cache image found. Continuing without cache..."
+
+  # 🏗️ Step 2: Build Docker image
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Build Docker Image"
+    args:
+      - "build"
+      - "--cache-from=gcr.io/$PROJECT_ID/$_IMAGE-cache"
+      - "--tag=$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE"
+      - "-f"
+      - "Dockerfile.fastapi"
+      - "."
+
+  # 📦 Step 3: Tag for cache reuse
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Tag Cache Image"
+    args:
+      - "tag"
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE"
+      - "gcr.io/$PROJECT_ID/$_IMAGE-cache"
+
+  # ☁️ Step 4: Push final image
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Push Image"
+    args:
+      - "push"
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE"
+
+  # ☁️ Step 5: Push cache image
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Push Cache Image"
+    args:
+      - "push"
+      - "gcr.io/$PROJECT_ID/$_IMAGE-cache"
+
+  # 🚀 Step 6: Deploy to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "Deploy Cloud Run"
+    entrypoint: "gcloud"
+    args:
+      - "run"
+      - "deploy"
+      - "$_SERVICE"
+      - "--image"
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE"
+      - "--region"
+      - "$_REGION"
+      - "--platform"
+      - "managed"
+      - "--allow-unauthenticated"
+      - "--port"
+      - "8080"
+      - "--quiet"
+
+images:
+  - "$_REGION-docker.pkg.dev/$PROJECT_ID/$_REPO/$_IMAGE"
+  - "gcr.io/$PROJECT_ID/$_IMAGE-cache"
